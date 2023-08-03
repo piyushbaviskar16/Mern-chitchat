@@ -1,33 +1,76 @@
-import React from 'react'
-import styled  from 'styled-components';
-import Logout from './Logout';
-export default function ChatContainer({currentChat}) {
-    return ( 
-    <> 
-    {
-        currentChat && (
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import Logout from "./Logout";
+import ChatInput from "./ChatInput";
+import Messages from "./Messages";
+import axios from "axios";
+import { getAllMessagesRoute, sendMessageRoute } from "../utils/APIRoutes";
+
+export default function ChatContainer({ currentChat, currentUser }) {
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.post(getAllMessagesRoute, {
+          from: currentUser._id,
+          to: currentChat._id,
+        });
+        setMessages(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchData();
+  }, [currentChat, currentUser]);
+
+  const handleSendMsg = async (msg) => {
+    await axios.post(sendMessageRoute, {
+      from: currentUser._id,
+      to: currentChat._id,
+      message: msg,
+    });
+
+  };
+  return (
+    <>
+      {currentChat && (
         <Container>
-        
-      <div className="chat-header">
-      <div className="user-details">
-            <div className="avatar">
-            <img src={currentChat.avatarImage} alt="avatar" />
+          <div className="chat-header">
+            <div className="user-details">
+              <div className="avatar">
+                <img src={currentChat?.avatarImage} alt="avatar" />
+              </div>
+              <div className="username">
+                <h3>{currentChat?.username}</h3>
+              </div>
             </div>
-            <div className="username">
-            <h3>{currentChat.username}</h3>
-            </div>
-            </div>
-            <Logout/>
-            </div>
-            <div className="chat-messages"></div>
-            <div className="chat-input"></div>
-            
-            </Container>
-    
-)}
-       
-</>
-);
+            <Logout />
+          </div>
+          <div className="chat-messages">
+            {messages.map((message, index) => {
+              return (
+                // <div ref={scrollRef} key={index}>
+                <div
+                  key={index}
+                  className={`message ${
+                    message.fromSelf ? "sended" : "recieved"
+                  }`}
+                >
+                  <div className="content ">
+                    <p>{message?.message}</p>
+                  </div>
+                </div>
+                // </div>
+              );
+            })}
+          </div>
+          <ChatInput handleSendMsg={handleSendMsg} />
+        </Container>
+      )}
+    </>
+  );
 }
 
 const Container = styled.div`

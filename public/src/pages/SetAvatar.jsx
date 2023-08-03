@@ -22,14 +22,11 @@ function SetAvatar() {
         theme: "dark",
     };
     useEffect(() => {
-      // Define the async function inside useEffect
       async function checkUser() {
         if (!localStorage.getItem('chat-app-user')) {
           navigate('/login');
         }
       }
-  
-      // Call the async function immediately
       checkUser();
     }, [navigate]);
 
