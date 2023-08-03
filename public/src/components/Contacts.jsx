@@ -7,8 +7,8 @@ function Contacts({contacts,currentUser,changeChat}) {
     const [currentSelected, setCurrentSelected] = useState(undefined);
     useEffect(() => {
         if (currentUser) {
-        setCurrentUserImage(currentUser.avatarImage);
         setCurrentUserName(currentUser.username);
+        setCurrentUserImage(currentUser.avatarImage);
     }
     }, [currentUser]);
     const changeCurrentChat = (index, contacts) =>{
@@ -19,8 +19,8 @@ function Contacts({contacts,currentUser,changeChat}) {
     <>
       {
         currentUserImage && currentUserName && (
-            <Container>{
-                <><div className="brand">
+            <Container>
+                <div className="brand">
                         <img src={Logo} alt="logo" />
                         <h3>ChitChat</h3>
                     </div><div className="contacts">
@@ -48,13 +48,13 @@ function Contacts({contacts,currentUser,changeChat}) {
                                 <h2>{currentUserName}</h2>
 
                             </div>
-                        </div></>
-}
+                        </div>
+
             </Container>
         )
       }
     </>
-  )
+  );
   
 }
 const Container = styled.div`
