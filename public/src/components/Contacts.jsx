@@ -1,61 +1,62 @@
-import React, {useEffect, useState} from 'react'
-import styled  from 'styled-components'
-import Logo from "../assets/chat-91.svg"
-function Contacts({contacts,currentUser,changeChat}) {
-    const [currentUserName, setCurrentUserName] = useState(undefined);
-    const [currentUserImage, setCurrentUserImage] = useState(undefined);
-    const [currentSelected, setCurrentSelected] = useState(undefined);
-    useEffect(() => {
-        if (currentUser) {
-        setCurrentUserName(currentUser.username);
-        setCurrentUserImage(currentUser.avatarImage);
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import Logo from "../assets/chat-91.svg";
+function Contacts({ contacts, currentUser, changeChat }) {
+  const [currentUserName, setCurrentUserName] = useState(undefined);
+  const [currentUserImage, setCurrentUserImage] = useState(undefined);
+  const [currentSelected, setCurrentSelected] = useState(undefined);
+  useEffect(() => {
+    if (currentUser) {
+      setCurrentUserName(currentUser.username);
+      setCurrentUserImage(currentUser.avatarImage);
     }
-    }, [currentUser]);
-    const changeCurrentChat = (index, contacts) =>{
-      setCurrentSelected(index);
-      changeChat(contacts);
-    };
+  }, [currentUser]);
+
+  const changeCurrentChat = (index, contacts) => {
+    setCurrentSelected(index);
+    changeChat(contacts);
+  };
+
   return (
     <>
-      {
-        currentUserImage && currentUserName && (
-            <Container>
-                <div className="brand">
-                        <img src={Logo} alt="logo" />
-                        <h3>ChitChat</h3>
-                    </div><div className="contacts">
-                            {contacts.map((contact, index) => {
-                                return (
-                                    <div className={`contact ${index === currentSelected ? "selected" : ""}`} 
-                                    key={index}
-                                    onClick={() => changeCurrentChat(index,contact)}
-                                    >
-                                        <div className="avatar">
-                                            <img src={contact.avatarImage} alt="avatar" />
-                                        </div>
-                                        <div className="username">
-                                            <h3>{contact.username}</h3>
-
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div><div className="current-user">
-                            <div className="avatar">
-                                <img src={currentUserImage} alt="avatar" />
-                            </div>
-                            <div className="username">
-                                <h2>{currentUserName}</h2>
-
-                            </div>
-                        </div>
-
-            </Container>
-        )
-      }
+      {currentUserImage && currentUserName && (
+        <Container>
+          <div className="brand">
+            <img src={Logo} alt="logo" />
+            <h3>ChitChat</h3>
+          </div>
+          <div className="contacts">
+            {contacts.map((contact, index) => {
+              return currentUser._id === contact._id ? null : (
+                <div
+                  className={`contact ${
+                    index === currentSelected ? "selected" : ""
+                  }`}
+                  key={index}
+                  onClick={() => changeCurrentChat(index, contact)}
+                >
+                  <div className="avatar">
+                    <img src={contact.avatarImage} alt="avatar" />
+                  </div>
+                  <div className="username">
+                    <h3>{contact.username}</h3>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="current-user">
+            <div className="avatar">
+              <img src={currentUserImage} alt="avatar" />
+            </div>
+            <div className="username">
+              <h2>{currentUserName}</h2>
+            </div>
+          </div>
+        </Container>
+      )}
     </>
   );
-  
 }
 const Container = styled.div`
   display: grid;
@@ -144,4 +145,4 @@ const Container = styled.div`
   }
 `;
 
-export default Contacts
+export default Contacts;

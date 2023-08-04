@@ -66,7 +66,7 @@ function SetAvatar() {
         setIsLoading(true)
         const fetchData = () => {
           const data = [];
-          for (let i = 0; i < 4; i++) {
+          for (let i = 0; i < 8; i++) {
             const image = `${api}=${Math.round(Math.random() * 10000)}`;
             data.push(image);
           }
@@ -121,7 +121,7 @@ justify-content: center;
 align-items: center;
 flex-direction: column;
 gap: 3rem;
-background-color: #131324;
+background-color: #1b2451f4;
 height: 100vh;
 width: 100vw;
 
@@ -152,11 +152,11 @@ width: 100vw;
     }
   }
   .selected {
-    border: 0.4rem solid #4e0eff;
+    border: 0.3rem solid #121935;
   }
 }
 .submit-btn {
-  background-color: #997af0;
+  background-color: #120f2d;
   color: white;
   padding: 1rem 2rem;
   border: none;
@@ -166,7 +166,7 @@ width: 100vw;
   font-size: 1rem;
   text-transform: uppercase;
   &:hover {
-    background-color: #4e0eff;
+    background-color: #794974f4;
   }
 }
 `;
