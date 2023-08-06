@@ -16,24 +16,6 @@ function Chat() {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [isLoaded , setIsLoaded] = useState(false);
-  // useEffect(async() =>{
-  //   if(!localStorage.getItem("chat-app-user")){
-  //     navigate("/login")
-  //   } else {
-  //     setCurrentUser(await JSON.parse(localStorage.getItem("chat-app-user")))
-  //   }
-  // },[])
-  // useEffect(async() =>{
-  //   if(currentUser) {
-  //     if(currentUser.isAvatarImageSet) {
-  //       const data = await axios.get(`$(allUsersRoute)/$(currentUser._id)`);
-  //       setContacts(data.data);
-  //     } else {
-  //       navigate("/setAvatar")
-  //     }
-  //   }
-  // },[currentUser])
-
   useEffect(() => {
     async function checkUser() {
       if (!localStorage.getItem("chat-app-user")) {
